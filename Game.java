@@ -18,12 +18,13 @@ public class Game {
     System.out.println("Howdy, what's your name?");
     String playerName = input.nextLine();
     int gameNumber = 0;
-    int bestTries = 1000000;
+    int bestTries = 10;
+    int maxAttempts = 10;
     Boolean keepPlaying = true;
 
     while (keepPlaying == true) {
       gameNumber++;
-      System.out.println("Hi, " + playerName + ", I'm thinking of a number from 1 to 100.");
+      System.out.println("\nHi, " + playerName + ", I'm thinking of a number from 1 to 100.");
 
       // Randomly pick a number from 1 - 100
       Random rand = new Random();
@@ -38,6 +39,10 @@ public class Game {
         int guess;
         System.out.print("> ");
         tries++;
+        if (tries > maxAttempts) {
+          System.out.println("> > > Too many tries!");
+          break;
+        }
 
         try {
           guess = input.nextInt();
@@ -53,12 +58,16 @@ public class Game {
           System.out.println("Your guess is too high, try again.");
         } else if (guess < number) {
           System.out.println("Your guess is too low, try again.");
-        } else {
+        } else if (guess == number) {
           break;
         }
       }
 
-      System.out.println("Well done, " + playerName + "! You found my number in " + tries + " tries.");
+      if (tries > 10) {
+        System.out.println("Sorry, " + playerName + ", you couldn't find the number in 10 guesses or less.");
+      } else {
+        System.out.println("Well done, " + playerName + "! You found my number in " + tries + " tries.");
+      }
 
       if (tries < bestTries) {
         System.out.println("Wow, you beat your best number of tries! Achievement unlocked!");
