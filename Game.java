@@ -64,15 +64,15 @@ public class Game {
       }
 
       // Randomly pick a number between min and max
+      int number = ThreadLocalRandom.current().nextInt(min, max + 1);
       // Random rand = new Random();
       // int number = rand.nextInt(100);
-      int number = ThreadLocalRandom.current().nextInt(min, max + 1);
-      System.out.println("****" + number + "****");
+      // System.out.println("****" + number + "****");
 
-      // User guesses number, store # of tries, break loop when it's guessed
       System.out.println("Try to guess my number!");
       int tries = 0;
 
+      // User guesses number, store # of tries, break loop when it's guessed
       while (true) {
         int guess;
         System.out.print("> ");
@@ -84,7 +84,7 @@ public class Game {
 
         try {
           guess = input.nextInt();
-        } catch(InputMismatchException e) {
+        } catch(InputMismatchException e) { // handle bad input
           String bad_input = input.next();
           System.out.println(playerName + "icorn, that's not an integer, try again.");
           continue;
@@ -101,12 +101,14 @@ public class Game {
         }
       }
 
+      // Kick user out for too many tries
       if (tries > 10) {
         System.out.println("Sorry, " + playerName + "icorn, you couldn't find the number in 10 guesses or less.");
       } else {
         System.out.println("Well done, " + playerName + "icorn! You found my number in " + tries + " tries.");
       }
 
+      // compare new tries to best tries
       if (tries < bestTries) {
         System.out.println("Wow, you beat your best number of tries! Achievement unlocked!");
         bestTries = tries;
@@ -116,6 +118,7 @@ public class Game {
     
       System.out.println("Do you want to play again?");
 
+      // data validation for playing another game
       while (true) {
         System.out.print("y/n: ");
         String answer = input.next();
@@ -132,6 +135,7 @@ public class Game {
       }
     }
 
+    // good-bye message
     System.out.println("Great game, " + playerName + "icorn! You played my guessing game " + gameNumber + " times and your best number of tries was " + bestTries + ". See you next time!");
 
   }
